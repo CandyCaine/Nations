@@ -1,5 +1,7 @@
 package me.rich.nations;
 
+import java.io.File;
+
 import me.rich.nations.persistence.FileManager;
 
 import org.bukkit.ChatColor;
@@ -16,11 +18,14 @@ import com.sk89q.minecraft.util.commands.WrappedCommandException;
 
 public class NationsPlugin extends JavaPlugin {
 
+	public static File dataFolder;
+	
 	private FileManager fileManager;
 	private CommandsManager<CommandSender> commandsManager;
 	
 	@Override
 	public void onEnable() {
+		dataFolder = this.getDataFolder();
 		this.fileManager = new FileManager(this);
 		this.fileManager.load();
 		
