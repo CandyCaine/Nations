@@ -23,44 +23,44 @@ import com.sk89q.minecraft.util.commands.WrappedCommandException;
 public class NationsPlugin extends JavaPlugin {
 
 	public static File dataFolder;
-	
+
 	private FileManager fileManager;
 	private CommandsManager<CommandSender> commandsManager;
 	private PermissionManager permissionManager;
-	
+
 	@Override
 	public void onEnable() {
 		dataFolder = this.getDataFolder();
 		this.fileManager = new FileManager(this);
 		this.fileManager.load();
-		
+
 		this.setupListeners();
 		this.setupCommands();
 		this.permissionManager = new PermissionManager(this);
 	}
-	
+
 	private void setupListeners() {
 		this.getServer().getPluginManager().registerEvents(new BlockListener(this), this);
 		this.getServer().getPluginManager().registerEvents(new EntityListener(this), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
 	}
-	
+
 	private void setupCommands() {
 		this.commandsManager = new CommandsManager<CommandSender>() {
-			
+
 			@Override
 			public boolean hasPermission(CommandSender sender, String permission) {
 				return sender.hasPermission(permission);
 			}
-			
+
 		};
-		
-		//Register commands...
+
+		// Register commands...
 	}
-	
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		
+
 		try {
 			this.commandsManager.execute(command.getName(), args, sender, sender);
 		} catch (CommandPermissionsException e) {
@@ -74,7 +74,7 @@ public class NationsPlugin extends JavaPlugin {
 			if (e.getCause() instanceof NumberFormatException) {
 				sender.sendMessage(ChatColor.RED + "Number expected, String recieved instead.");
 			} else {
-				sender.sendMessage(ChatColor.RED + "An error has occurred.  Check server console.");
+				sender.sendMessage(ChatColor.RED + "An error has occurred. Check server console.");
 				e.printStackTrace();
 			}
 		} catch (CommandException e) {
@@ -83,11 +83,11 @@ public class NationsPlugin extends JavaPlugin {
 
 		return true;
 	}
-	
+
 	public FileManager getFileManager() {
 		return this.fileManager;
 	}
-	
+
 	public PermissionManager getPermissionManager() {
 		return this.permissionManager;
 	}
