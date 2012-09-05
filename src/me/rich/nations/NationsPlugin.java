@@ -2,6 +2,9 @@ package me.rich.nations;
 
 import java.io.File;
 
+import me.rich.nations.listener.BlockListener;
+import me.rich.nations.listener.EntityListener;
+import me.rich.nations.listener.PlayerListener;
 import me.rich.nations.persistence.FileManager;
 
 import org.bukkit.ChatColor;
@@ -29,7 +32,14 @@ public class NationsPlugin extends JavaPlugin {
 		this.fileManager = new FileManager(this);
 		this.fileManager.load();
 		
+		this.setupListeners();
 		this.setupCommands();
+	}
+	
+	private void setupListeners() {
+		this.getServer().getPluginManager().registerEvents(new BlockListener(this), this);
+		this.getServer().getPluginManager().registerEvents(new EntityListener(this), this);
+		this.getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
 	}
 	
 	private void setupCommands() {
