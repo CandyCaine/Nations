@@ -5,6 +5,7 @@ import java.io.File;
 import me.rich.nations.listener.BlockListener;
 import me.rich.nations.listener.EntityListener;
 import me.rich.nations.listener.PlayerListener;
+import me.rich.nations.permission.PermissionManager;
 import me.rich.nations.persistence.FileManager;
 
 import org.bukkit.ChatColor;
@@ -25,6 +26,7 @@ public class NationsPlugin extends JavaPlugin {
 	
 	private FileManager fileManager;
 	private CommandsManager<CommandSender> commandsManager;
+	private PermissionManager permissionManager;
 	
 	@Override
 	public void onEnable() {
@@ -34,6 +36,7 @@ public class NationsPlugin extends JavaPlugin {
 		
 		this.setupListeners();
 		this.setupCommands();
+		this.permissionManager = new PermissionManager(this);
 	}
 	
 	private void setupListeners() {
@@ -79,5 +82,13 @@ public class NationsPlugin extends JavaPlugin {
 		}
 
 		return true;
+	}
+	
+	public FileManager getFileManager() {
+		return this.fileManager;
+	}
+	
+	public PermissionManager getPermissionManager() {
+		return this.permissionManager;
 	}
 }

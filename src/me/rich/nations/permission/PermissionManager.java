@@ -32,4 +32,20 @@ public class PermissionManager {
 		}
 		this.permissionAttachment.remove(player.getName());
 	}
+	
+	public void addPermission(Player player, String permission) {
+		if (this.hasAttachment(player)) {
+			this.permissionAttachment.get(player.getName()).setPermission(permission, true);
+		}
+	}
+	
+	public boolean hasPermission(Player player, String permission) {
+		return player.hasPermission(permission);
+	}
+	
+	public void removePermission(Player player, String permission) {
+		if (this.hasAttachment(player)) {
+			this.permissionAttachment.get(player.getName()).setPermission(permission, false);
+		}
+	}
 }
