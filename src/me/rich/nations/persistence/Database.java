@@ -29,6 +29,13 @@ public class Database {
 			String query = "CREATE TABLE nation (id INT PRIMARY KEY, nationname VARCHAR(50), description VARCHAR(150));";
 			this.sqlite.query(query);
 		}
+		
+		if (this.sqlite.checkTable("player")) {
+			return;
+		} else {
+			String query = "CREATE TABLE player (id INT PRIMARY KEY, playername VARCHAR(50), nationname VARCHAR(150), rank VARCHAR(30));";
+			this.sqlite.query(query);
+		}
 	}
 
 	public void close() {
